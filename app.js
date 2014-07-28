@@ -14,14 +14,14 @@ app.use(express.methodOverride());
 app.use(app.router);
 
 app.get("/antrol" , function(req,res) {
-	var html = fs.readFileSync("resources/main.html");
-//	var html = fs.readFileSync("dist/main.html");
+//	var html = fs.readFileSync("resources/main.html");
+	var html = fs.readFileSync("dist/main.html");
 	res.header("Content-Type" , "html;charset=UTF-8");
 	res.send(html);
 });
 
-app.use(express.static(path.join(__dirname , "resources")));
-//app.use(express.static(path.join(__dirname , "dist")));
+//app.use(express.static(path.join(__dirname , "resources")));
+app.use(express.static(path.join(__dirname , "dist")));
 
 app.get("/news/category" , function(req,res) {
 	var fileContent = fs.readFileSync("appdata/category.json");

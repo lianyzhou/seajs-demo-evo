@@ -75,7 +75,7 @@ module.exports = function(grunt){
         // Performs rewrites based on rev and the useminPrepare configuration
         usemin: {
             html: ['<%= yeoman.dist %>/*.html'],
-            css: ['<%= yeoman.dist %>/css/{,*/}*.css'],
+            css: ['<%= yeoman.dist %>/css/**/*.css'],
             options: {
                 assetsDirs: ['<%= yeoman.dist %>' , '<%= yeoman.dist %>/images']
             }
@@ -95,13 +95,14 @@ module.exports = function(grunt){
                         dest: '<%= yeoman.dist %>',
                         src: [
                             '*.html',
-                            'images/{,*/}*.{png,jpg,jpeg,gif}'
+                            'css/**/*.{png,jpg,jpeg,gif}',
+                            'images/**/*.{png,jpg,jpeg,gif}'
                         ]
                     },
 	    			{
 	    				cwd : '<%= yeoman.app %>',
 	    				src : [
-	    					'lib/sea/{,*/}*.js',
+	    					'lib/sea/**/*.js',
 	                        'lib/jquery.js',
 	                        'lib/sea.js'
 	    				],
@@ -114,12 +115,17 @@ module.exports = function(grunt){
     	},
     	rev: {
             dest: {
-                files: {
-                    src: [
-                    	'<%= yeoman.dist %>/css/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif}'
-                    ]
-                }
+                files: [{
+                	cwd : '<%= yeoman.dist %>',
+    				src : [
+    					'css/{main,vendor}.css',
+                        'css/**/*.{png,jpg,jpeg,gif}',
+                    	'images/**/*.{png,jpg,jpeg,gif}'
+    				],
+    				expand : true,
+    				dot: true,
+    				dest : '<%= yeoman.dist %>'
+                }]
             }
         },
         uglify : {
